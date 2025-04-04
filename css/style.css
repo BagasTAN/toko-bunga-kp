@@ -134,7 +134,6 @@ body {
 
 .keranjang.active {
     right: 0;
-
 }
 
 .keranjang .cart-item {
@@ -478,11 +477,11 @@ footer .credit a{
     border-radius: 0.5rem;
     width: 50%;
     text-align: center;
-    animation: modal-show 0.5s ease-in-out;
+    animation: modal-show 0.5s forwards;
 }
 
 .modal-box.hide .modal-container {
-    animation: modal-hide 0.3s ease-in-out;
+    animation: modal-hide 0.5s forwards;
 }
 
 .modal-box .modal-container .close-modal {
@@ -537,7 +536,7 @@ footer .credit a{
 /* modal animation */
 @keyframes modal-show {
     from {
-        transform: translateY(50px);
+        transform: translateY(100%);
         opacity: 0;
     }
     to {
@@ -549,11 +548,11 @@ footer .credit a{
 @keyframes modal-hide {
     from {
         transform: translateY(0);
-        opacity: 1;
+        opacity: 1; 
     }
     to {
-        transform: translateY(50px);
-        opacity: 0;
+        transform: translateY(100%);
+        opacity: 0; 
     }
 }
 

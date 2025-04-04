@@ -2,7 +2,6 @@
 // HAMBURGER MENU SECTION
 // =======================
 
-// Toggle class 'active' pada hamburger menu
 const navbarNav = document.querySelector('.navbar-nav');
 const hamburger = document.querySelector('#hamburger-menu');
 
@@ -10,7 +9,7 @@ const hamburger = document.querySelector('#hamburger-menu');
 document.querySelector('#hamburger-menu').onclick = (e) => {
     navbarNav.classList.toggle('active');
     searchForm.classList.remove('active');    // Tutup search form jika terbuka
-    cart.classList.remove('active'); // Tutup shopping cart jika terbuka  
+    cart.classList.remove('active');          // Tutup shopping cart jika terbuka  
     e.preventDefault();        
 };
 
@@ -29,9 +28,8 @@ document.addEventListener('click', function(e) {
 // SEARCH FORM SECTION
 // =======================
 
-// Toggle class 'active' pada search form
 const searchForm = document.querySelector('.search-form');
-const searchBox = document.querySelector('.search-box');
+const searchBox  = document.querySelector('.search-box');
 
 // Ketika tombol search diklik
 document.querySelector('#search-btn').onclick = (e) => {
@@ -40,7 +38,6 @@ document.querySelector('#search-btn').onclick = (e) => {
     navbarNav.classList.remove('active');     // Tutup hamburger menu jika terbuka
     cart.classList.remove('active');          // Tutup shopping cart jika terbuka
     searchBox.focus();
-    
 };
 
 // Klik di luar search form untuk menutup search form
@@ -58,9 +55,9 @@ document.addEventListener('click', function(e) {
 // SHOPPING CART SECTION
 // =======================
 
-// Klik shopping cart untuk menampilkan cart
 const cart = document.querySelector('.keranjang');
 
+// Klik shopping cart untuk menampilkan cart
 document.querySelector('#cart-btn').onclick = (e) => {
     cart.classList.toggle('active');
     navbarNav.classList.remove('active');     // Tutup hamburger menu jika terbuka
@@ -78,13 +75,14 @@ document.addEventListener('click', function(e) {
     }
 });
 
+
 // =======================
 // MODAL BOX
 // =======================
-const modal = document.querySelector('#modal-box');
-const modalDetail = document.querySelectorAll('.eye');
-const closeModal = document.querySelector('.close-modal');
 
+const modal       = document.querySelector('#modal-box');
+const modalDetail = document.querySelectorAll('.eye');
+const closeModal  = document.querySelector('.close-modal');
 
 // Ketika ikon "eye" diklik, tampilkan modal
 modalDetail.forEach((btn) => {
@@ -93,14 +91,13 @@ modalDetail.forEach((btn) => {
     };
 });
 
-
 // Ketika tombol "X" diklik, sembunyikan modal dengan animasi
 closeModal.onclick = () => {
     modal.classList.add('hide'); // Tambahkan class animasi keluar
     setTimeout(() => {
-        modal.style.display = 'none'; // Sembunyikan modal setelah animasi selesai
-        modal.classList.remove('hide'); // Reset class agar bisa dipakai lagi
-    }, 300); // Sesuai dengan durasi animasi (0.5s = 500ms)
+        modal.style.display = 'none';        // Sembunyikan modal setelah animasi selesai
+        modal.classList.remove('hide');      // Reset class agar bisa dipakai lagi
+    }, 500); // Sesuai dengan durasi animasi (0.5s = 500ms)
 };
 
 // Klik di luar modal box untuk menutup modal
@@ -114,3 +111,32 @@ window.onclick = (e) => {
     }
     e.preventDefault();
 };
+
+
+// =======================
+// SMOOTH SCROLL SECTION
+// =======================
+
+document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".navbar-nav a");
+
+    links.forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Hindari default behavior
+
+            const targetId      = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+
+            // Tutup menu hamburger (jika aktif di mobile)
+            const navbar = document.querySelector(".navbar-nav");
+            navbar.classList.remove("active");
+        });
+    });
+});
