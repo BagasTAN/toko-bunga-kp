@@ -74,11 +74,106 @@ body {
 .navbar .navbar-extra a {
     color: #000000;
     margin: 0 0.5rem;
+    transition: 0.3s;
 }
 
 .navbar .navbar-extra a:hover {
     color: var(--primary);
 }
+
+/* navbar search form */
+.navbar .search-form{
+    position: absolute;
+    top: 100%;
+    right: 7%;
+    background-color: white;
+    width: 50rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem; /* Tambahkan padding */
+    transform: scaleY(0);
+    transform-origin: top; /* Ubah dari top ke center */
+    transition: 0.3s ;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.navbar .search-form.active {
+    transform: scaleY(1);
+    border: 1px solid var(--primary);
+}
+
+.navbar .search-form input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    font-size: 1.4rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar .search-form label {
+    cursor: pointer;
+    margin-right: 2rem;
+    font-size: 1.4rem;
+    color: var(--primary);
+}
+
+.keranjang {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    width: 35rem;
+    height: 100vh;
+    padding: 0 1.5rem;
+    color: var(--text);
+    background-color: var(--primary);
+    transition: 0.3s linear;
+}
+
+.keranjang.active {
+    right: 0;
+
+}
+
+.keranjang .cart-item {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--text);
+    position: relative;
+}
+
+.keranjang img {
+    height: 7rem;
+    border-radius: 10%;
+}
+
+.keranjang .cart-item h3 {
+    font-size: 1.6rem;
+    color: var(--text);
+}
+
+.keranjang .cart-item .item-price {
+    font-size: 1.3rem;
+}
+
+.keranjang .remove-item {
+    position: absolute;
+    right: 1rem;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.keranjang .remove-item:hover {
+    color: var(--background);
+}
+
 
 #hamburger-menu {
     display: none;
@@ -166,11 +261,12 @@ body {
 
 .about .row .about-img img {
     width: 100%;
+    border-radius: 10%;
 }
 
 .about .row .content {
     flex: 1 1 70rem;
-    padding: 0 1rem;
+    padding: 0 5rem;
 }
 
 .about .row .content h3 {
@@ -201,27 +297,67 @@ body {
 }
 
 .product .row {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     margin-top: 5rem;
-    justify-content: center;
 }
 
 .product .row .product-card {
     text-align: center;
-    padding-bottom: 4rem;
+    margin-top: 2rem ;
+    padding: 2rem;
+
 }
 
-.product .row .product-card img{
-    border-radius: 50%;
-    width: 80%;
+.product .row .product-card .product-card-img {
+    
+    border-radius: 10%;
+    width: 100%;
 }
 
-.product .row .product-card .product-card-title {
-    margin-top: 1.5rem auto 0.5rem;
+.product .row .product-card .product-description .product-card-title {
+    font-size: 1.8rem;
+    margin-top: 1.5rem  0.5rem;
+    color: var(--primary);
+}
+
+.product .row .product-card .product-description .product-card-price {
+    margin: 0.5rem auto 1rem;
+    font-weight: 700;
+    font-size: 1.4rem;
     color: var(--text);
 }
 
+.product .row .product-card .product-card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    color: var(--text);
+    gap: 0.8rem;
+}
+.product .row .product-card .product-card-icon a {
+    color: var(--text);
+    font-size: 2rem;
+    padding: 0.5rem;
+    transition: 0.3s;
+}
+
+.product .row .product-card .product-card-icon .cart,
+.product .row .product-card .product-card-icon .eye
+.product .row .product-card .product-card-icon .like{
+    transition: 0.3s;
+}
+
+.product .row .product-card .product-card-icon .cart:hover,
+.product .row .product-card .product-card-icon .eye:hover {
+    color: var(--primary);
+}
+
+.product .row .product-card .product-card-icon .like:hover {
+    color: palevioletred;
+    fill: palevioletred;
+}
 /* contact section*/
 .contact .row {
     display: flex;
@@ -319,7 +455,107 @@ footer .credit a{
     color: var(--background);
 }
 
+/* modal box */
+.modal-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
+.modal-box .modal-container {
+    position: relative;
+    background-color: var(--background);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 50%;
+    text-align: center;
+    animation: modal-show 0.5s ease-in-out;
+}
+
+.modal-box.hide .modal-container {
+    animation: modal-hide 0.3s ease-in-out;
+}
+
+.modal-box .modal-container .close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-box .modal-container .close-modal:hover {
+    color: var(--primary);
+}
+
+.modal-box .modal-container img {
+    width: 45%;
+    border-radius: 5%;
+}
+
+.modal-box .modal-container .modal-product {
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+}
+
+.modal-box .modal-container .modal-product .modal-price {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: var(--text);
+}
+
+.modal-box .modal-container .modal-product a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    gap: 1rem;
+    color: var(--background);
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+}
+
+.modal-box .modal-container .modal-product a i {
+    font-size: 1.6rem;
+}
+
+/* modal animation */
+@keyframes modal-show {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes modal-hide {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+}
 
 /* media queries */
 /* laptop */
@@ -346,7 +582,7 @@ footer .credit a{
         background-color: var(--primary);
         width: 30rem;
         height: 100vh;
-        transition: 0.3s;
+        transition: 0.3s linear;
     }
 
     .navbar .navbar-nav.active {
@@ -375,6 +611,10 @@ footer .credit a{
     transform: scaleX();
     }
 
+    .navbar .search-form{
+        width: 90%;
+        right: 2rem;
+    }
     .hero .content {
         max-width: 44rem;
         padding: 1.4rem 7%;
